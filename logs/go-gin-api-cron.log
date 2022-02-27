@@ -1,0 +1,2 @@
+{"level":"info","time":"2022-02-26 15:22:56","caller":"cron/cron_start.go:28","msg":"开始初始化后台任务","domain":"go-gin-api[dev]"}
+{"level":"info","time":"2022-02-26 15:22:56","caller":"cron/cron_start.go:48","msg":"后台任务初始化完成，总数量：0","domain":"go-gin-api[dev]"}

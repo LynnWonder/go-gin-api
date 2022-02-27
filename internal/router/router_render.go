@@ -37,7 +37,9 @@ func setRenderRouter(r *resource) {
 		notRBAC.GET("/dashboard", renderDashboard.View())
 
 		// 安装
+		// tip 进入安装页面
 		notRBAC.GET("/install", renderInstall.View())
+		// tip 执行初始化项目指令
 		notRBAC.POST("/install/execute", renderInstall.Execute())
 
 		// 管理员

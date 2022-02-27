@@ -33,6 +33,7 @@ type initExecuteRequest struct {
 
 func (h *handler) Execute() core.HandlerFunc {
 
+	// tip 嵌套字典
 	installTableList := map[string]map[string]string{
 		"authorized": {
 			"table_sql":      tablesqls.CreateAuthorizedTableSql(),
