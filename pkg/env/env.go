@@ -52,6 +52,9 @@ func (e *environment) IsPro() bool {
 
 func (e *environment) t() {}
 
+// tip
+// 	只要 main.go 中引用了这个 env 包，那么 init 函数总是会先于 main 函数执行
+//  init 函数的主要功能就是去初始化那些没法用表达式初始化的变量
 func init() {
 	env := flag.String("env", "", "请输入运行环境:\n dev:开发环境\n fat:测试环境\n uat:预上线环境\n pro:正式环境\n")
 	flag.Parse()

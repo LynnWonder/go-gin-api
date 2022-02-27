@@ -31,6 +31,7 @@ type initExecuteRequest struct {
 	MySQLName string `form:"mysql_name"`
 }
 
+// 这是一个结构体类型上的方法
 func (h *handler) Execute() core.HandlerFunc {
 
 	// tip 嵌套字典
@@ -65,6 +66,7 @@ func (h *handler) Execute() core.HandlerFunc {
 		},
 	}
 
+	// 返回一个函数的函数就是高阶函数
 	return func(ctx core.Context) {
 		req := new(initExecuteRequest)
 		if err := ctx.ShouldBindForm(req); err != nil {
@@ -76,9 +78,10 @@ func (h *handler) Execute() core.HandlerFunc {
 			return
 		}
 
-		// region 验证 version
+		// region 验证 version， version 版本必须高于最低版本
 		versionStr := runtime.Version()
 		version := cast.ToFloat32(versionStr[2:6])
+		// 大写字母变量同样可以导出使用
 		if version < configs.MinGoVersion {
 			ctx.AbortWithError(core.Error(
 				http.StatusBadRequest,
@@ -178,6 +181,7 @@ func (h *handler) Execute() core.HandlerFunc {
 		// endregion
 
 		// region 初始化表结构 + 默认数据
+		// 插入初始化数据
 		for k, v := range installTableList {
 			if v["table_sql"] != "" {
 				// region 初始化表结构

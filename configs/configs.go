@@ -65,6 +65,7 @@ type Config struct {
 	} `toml:"language"`
 }
 
+// tip go:embed 会将导入到 embed 的文件从编译的时候将读取的内容转化成 string, []byte, 或者 embed.FS 类型的变量。
 var (
 	//go:embed dev_configs.toml
 	devConfigs []byte
@@ -79,6 +80,10 @@ var (
 	proConfigs []byte
 )
 
+// tip
+//  如果一个包导入了其他包，则首先初始化导入的包。 然后初始化当前包的常量。
+//  最后，调用当前包的 init() 函数。
+//  正是因为这里也导入了 env 这个包，所以 env 包总是先于 config 包的初始化
 func init() {
 	var r io.Reader
 
@@ -101,6 +106,7 @@ func init() {
 		panic(err)
 	}
 
+	// 可以理解成将变量全都赋值给配置了
 	if err := viper.Unmarshal(config); err != nil {
 		panic(err)
 	}
@@ -134,6 +140,8 @@ func init() {
 	})
 }
 
+// tip
+//  这个方法非常之妙~，直接返回的就是解指针
 func Get() Config {
 	return *config
 }
